@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка точки</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Проверка точки</h1>
+    <p>ФИО: Дивеев Даниил Андреевич</p>
+    <p>Группа: P3225</p>
+    <p>Вариант: 3508</p>
+</header>
+
+<main>
+    <form id="main-form">
+        <label for="x">X</label>
+        <label>
+            <input type="radio" name="x" value="-5"> -5
+        </label>
+        <label>
+            <input type="radio" name="x" value="-4"> -4
+        </label>
+        <label>
+            <input type="radio" name="x" value="-3"> -3
+        </label>
+        <label>
+            <input type="radio" name="x" value="-2"> -2
+        </label>
+        <label>
+            <input type="radio" name="x" value="-1"> -1
+        </label>
+        <label>
+            <input type="radio" name="x" value="0"> 0
+        </label>
+        <label>
+            <input type="radio" name="x" value="1"> 1
+        </label>
+        <label>
+            <input type="radio" name="x" value="2"> 2
+        </label>
+        <label>
+            <input type="radio" name="x" value="3"> 3
+        </label>
+        <label>
+            <input type="radio" name="x" value="4"> 4
+        </label>
+        <label>
+            <input type="radio" name="x" value="5"> 5
+        </label>
+
+
+        <label for="y">Y (от -3 до 3):</label>
+        <input type="number" id="y" name="y" step="0.01" required>
+
+        <label for="r">R</label>
+        <label>
+            <input type="checkbox" name="r" value="1"> 1
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="2"> 2
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="3"> 3
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="4"> 4
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="5"> 5
+        </label>
+
+        <input onclick="validate()" type="button" value="Проверить">
+    </form>
+
+    <div id="result">
+
+    </div>
+
+    <script>
+        function sendRequest(x, y, r) {
+            const url = `hit_checker.php?x_field=${x}&y_field=${y}&R_field=${r}`;
+
+            fetch(url,
+                {method: 'GET'}
+            ).then(response => response.json())
+                //.then(data => console.log(data))
+                .then(data => {
+                    const curTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${x}</td>
+                        <td>${y}</td>
+                        <td>${r}</td>
+                        <td>${curTime}</td>
+                        <td>${data.exec_time}</td>
+                        <td>${data.hit}</td>`
+
+                    document.getElementById("result").append(row);
+                })
+                .catch(error => {
+                    console.error('error: ', error);
+                })
+        }
+
+        function validate() {
+            var x = document.querySelector('input[name="x"]:checked').value;
+            var y = document.getElementById("y").value;
+            var r = document.querySelector('input[name="r"]:checked').value;
+
+            if (isNaN(x) || isNaN(y) || isNaN(r)) {
+                alert("All of x, y and r value must be numeric");
+            } else {
+                if (-3 <= y <= 3) {
+                    sendRequest(x, y, r);
+                } else {
+                    alert('X values must be an integer in range (-3;3) (inclusive)');
+                }
+            }
+        }
+
+    </script>
+</main>
+
+<footer>
+    <p>&copy; 2023 Даниил Дивеев</p>
+</footer>
+</body>
+</html>
