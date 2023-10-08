@@ -74,9 +74,7 @@
         <input onclick="validate()" type="button" value="Проверить">
     </form>
 
-    <div id="result">
-
-    </div>
+    <div id="result"></div>
 
     <script>
         function sendRequest(x, y, r) {
@@ -89,6 +87,7 @@
                 .then(data => {
                     const curTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
                     const row = document.createElement('tr');
+                    const resultObject = document.getElementById("result");
 
                     row.innerHTML = `
                         <td>${x}</td>
@@ -98,7 +97,22 @@
                         <td>${data.exec_time}</td>
                         <td>${data.hit}</td>`
 
-                    document.getElementById("result").append(row);
+                    console.log(resultObject.innerHTML);
+
+                    if (resultObject.innerHTML === '') {
+                        const header = document.createElement("thead")
+                        header.innerHTML = `<tr>
+                                            <th>X</th>
+                                            <th>Y</th>
+                                            <th>R</th>
+                                            <th>Current Time</th>
+                                            <th>Script Execution Time</th>
+                                            <th>Hit</th>
+                                            </tr>`
+
+                        resultObject.append(header)
+                    }
+                    resultObject.append(row);
                 })
                 .catch(error => {
                     console.error('error: ', error);
