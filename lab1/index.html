@@ -52,7 +52,7 @@
 
 
         <label for="y">Y (от -3 до 3):</label>
-        <input type="number" id="y" name="y" step="0.01" required>
+        <input id="y" name="y" step="0.01" required>
 
         <label for="r">R</label>
         <label>
@@ -74,16 +74,29 @@
         <input onclick="validate()" type="button" value="Проверить">
     </form>
 
-    <div id="result"></div>
+    <div id="error-state"></div>
+
+    <table id="result"></table>
 
     <script>
+        const Y_MAX = 3;
+        const Y_MIN = -3;
+
+        function raiseError(message) {
+            const error_message_element = document.getElementById("error-state")
+            error_message_element.innerHTML = message;
+
+            setTimeout(() => {
+                error_message_element.innerHTML = "";
+            }, 3000)
+        }
+
         function sendRequest(x, y, r) {
             const url = `hit_checker.php?x_field=${x}&y_field=${y}&R_field=${r}`;
 
             fetch(url,
                 {method: 'GET'}
             ).then(response => response.json())
-                //.then(data => console.log(data))
                 .then(data => {
                     const curTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
                     const row = document.createElement('tr');
@@ -97,9 +110,7 @@
                         <td>${data.exec_time}</td>
                         <td>${data.hit}</td>`
 
-                    console.log(resultObject.innerHTML);
-
-                    if (resultObject.innerHTML === '') {
+                    if (!resultObject.innerHTML.trim()) {
                         const header = document.createElement("thead")
                         header.innerHTML = `<tr>
                                             <th>X</th>
@@ -120,18 +131,26 @@
         }
 
         function validate() {
-            var x = document.querySelector('input[name="x"]:checked').value;
-            var y = document.getElementById("y").value;
-            var r = document.querySelector('input[name="r"]:checked').value;
+            let x = document.querySelector('input[name="x"]:checked').value;
+            let y = document.getElementById("y").value;
+            let r = document.querySelector('input[name="r"]:checked').value;
 
             if (isNaN(x) || isNaN(y) || isNaN(r)) {
-                alert("All of x, y and r value must be numeric");
+                raiseError("All of x, y, r should be numeric");
             } else {
-                if (-3 <= y <= 3) {
-                    sendRequest(x, y, r);
-                } else {
-                    alert('X values must be an integer in range (-3;3) (inclusive)');
-                }
+               if (y.trim() != ''){
+                    x = parseFloat(x)
+                    y = parseFloat(y)
+                    r = parseFloat(r)
+
+                    if ((Y_MIN <= y) && (y <= Y_MAX)) {
+                        sendRequest(x, y, r);
+                    } else {
+                        raiseError("Y should be float in range of (-3, 3) inclusive")
+                    }
+               } else {
+                   raiseError("Y is empty!")
+               }
             }
         }
 
