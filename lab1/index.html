@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка точки</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Проверка точки</h1>
+    <p>ФИО: Дивеев Даниил Андреевич</p>
+    <p>Группа: P3225</p>
+    <p>Вариант: 3508</p>
+</header>
+
+<main>
+    <form id="main-form">
+        <label for="x">X</label>
+        <label>
+            <input type="radio" name="x" value="-5"> -5
+        </label>
+        <label>
+            <input type="radio" name="x" value="-4"> -4
+        </label>
+        <label>
+            <input type="radio" name="x" value="-3"> -3
+        </label>
+        <label>
+            <input type="radio" name="x" value="-2"> -2
+        </label>
+        <label>
+            <input type="radio" name="x" value="-1"> -1
+        </label>
+        <label>
+            <input type="radio" name="x" value="0"> 0
+        </label>
+        <label>
+            <input type="radio" name="x" value="1"> 1
+        </label>
+        <label>
+            <input type="radio" name="x" value="2"> 2
+        </label>
+        <label>
+            <input type="radio" name="x" value="3"> 3
+        </label>
+        <label>
+            <input type="radio" name="x" value="4"> 4
+        </label>
+        <label>
+            <input type="radio" name="x" value="5"> 5
+        </label>
+
+
+        <label for="y">Y (от -3 до 3):</label>
+        <input id="y" name="y" step="0.01" required>
+
+        <label for="r">R</label>
+        <label>
+            <input type="checkbox" name="r" value="1"> 1
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="2"> 2
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="3"> 3
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="4"> 4
+        </label>
+        <label>
+            <input type="checkbox" name="r" value="5"> 5
+        </label>
+
+        <input onclick="validate()" type="button" value="Проверить">
+    </form>
+
+    <div id="error-state"></div>
+
+    <table id="result"></table>
+
+    <script>
+        const Y_MAX = 3;
+        const Y_MIN = -3;
+
+        function raiseError(message) {
+            const error_message_element = document.getElementById("error-state")
+            error_message_element.innerHTML = message;
+
+            setTimeout(() => {
+                error_message_element.innerHTML = "";
+            }, 3000)
+        }
+
+        function sendRequest(x, y, r) {
+            const url = `hit_checker.php?x_field=${x}&y_field=${y}&R_field=${r}`;
+
+            fetch(url,
+                {method: 'GET'}
+            ).then(response => response.json())
+                .then(data => {
+                    const curTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"});
+                    const row = document.createElement('tr');
+                    const resultObject = document.getElementById("result");
+
+                    row.innerHTML = `
+                        <td>${x}</td>
+                        <td>${y}</td>
+                        <td>${r}</td>
+                        <td>${curTime}</td>
+                        <td>${data.exec_time}</td>
+                        <td>${data.hit}</td>`
+
+                    if (!resultObject.innerHTML.trim()) {
+                        const header = document.createElement("thead")
+                        header.innerHTML = `<tr>
+                                            <th>X</th>
+                                            <th>Y</th>
+                                            <th>R</th>
+                                            <th>Current Time</th>
+                                            <th>Script Execution Time</th>
+                                            <th>Hit</th>
+                                            </tr>`
+
+                        resultObject.append(header)
+                    }
+                    resultObject.append(row);
+                })
+                .catch(error => {
+                    console.error('error: ', error);
+                })
+        }
+
+        function validate() {
+            let x = document.querySelector('input[name="x"]:checked').value;
+            let y = document.getElementById("y").value;
+            let r = document.querySelector('input[name="r"]:checked').value;
+
+            if (isNaN(x) || isNaN(y) || isNaN(r)) {
+                raiseError("All of x, y, r should be numeric");
+            } else {
+               if (y.trim() != ''){
+                    x = parseFloat(x)
+                    y = parseFloat(y)
+                    r = parseFloat(r)
+
+                    if ((Y_MIN <= y) && (y <= Y_MAX)) {
+                        sendRequest(x, y, r);
+                    } else {
+                        raiseError("Y should be float in range of (-3, 3) inclusive")
+                    }
+               } else {
+                   raiseError("Y is empty!")
+               }
+            }
+        }
+
+    </script>
+</main>
+
+<footer>
+    <p>&copy; 2023 Даниил Дивеев</p>
+</footer>
+</body>
+</html>
