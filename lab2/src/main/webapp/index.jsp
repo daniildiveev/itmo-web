@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="style.css">
 </head>
 <head>
     <meta charset="UTF-8">
@@ -21,26 +23,26 @@
 <div id="form-and-canvas-and-error-encloser">
     <div id="form-and-canvas-encloser">
         <form>
-            <label for="x">X</label>
+            <div id = "x-enclosing" class="enclosing">
+                <label for="x">X</label>
+                <div id="x-buttons"></div>
+            </div>
 
-            <div id="x-buttons"></div>
+            <div id="y-enclosing" class = "enclosing">
+                <label for="y">Y (от -3 до 5):</label>
+                <input id="y" name="y" step="0.01" placeholder="Y input" required>
+            </div>
 
-            <br>
+            <div id="r-enclosing" class="enclosing">
+                <label for="r">R</label>
+                <select name="r" id="r-select">
+                    <option value=""></option>
+                </select>
+            </div>
 
-            <label for="y">Y (от -3 до 5):</label>
-            <br>
-            <input id="y" name="y" step="0.01" required>
-
-            <br>
-
-            <label for="r">R</label>
-            <select name="r" id="r-select">
-                <option value=""></option>
-            </select>
-
-            <br>
-
-            <input type="button" id="submit-results" value="Проверить"/>
+            <div id="submit-enclosing" class="enclosing">
+                <input type="button" id="submit-results" value="Проверить"/>
+            </div>
         </form>
 
         <div id="error-message"></div>
@@ -48,9 +50,16 @@
 
 
     <div id="plotArea" onclick="handleImageClick(event)">
-        <img src="../resources/lab2_graph.png" alt="Plot Image" id="plotImage">
+        <img src="lab2_graph.svg" alt="Plot Image" id="plotImage">
     </div>
 </div>
+
+<div class="enclosing" id="footer-enclosing">
+    <footer>
+        <p>&copy; 2023 Даниил Дивеев</p>
+    </footer>
+</div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -83,16 +92,18 @@
     function handleImageClick(event) {
         const rSelect = document.getElementById("r-select");
 
-        const selectedR = rSelect.value;
+        let selectedR = rSelect.value;
 
         if (selectedR.trim() !== "") {
+            selectedR = parseFloat(selectedR);
+
             const plotImage = document.getElementById('plotImage');
             const imageRect = plotImage.getBoundingClientRect();
 
-            let mouseX = event.clientX - imageRect.left - 150;
-            let mouseY = event.clientY - imageRect.top - 150;
+            let mouseX = event.clientX - imageRect.left - 200;
+            let mouseY = event.clientY - imageRect.top - 200;
 
-            const scaleValue = 300 / (2.5 * selectedR);
+            const scaleValue = 400 / (2.5 * selectedR);
 
             mouseX = mouseX / scaleValue;
             mouseY = mouseY / scaleValue;
@@ -141,64 +152,11 @@
         const y = parseFloat(document.getElementById("y").value);
         const r = parseFloat(document.getElementById("r-select").value);
 
-        console.log(x, y, r);
         sendRequest(x, y, r);
     }
 
     document.getElementById("submit-results").onclick = validate;
 
 </script>
-
-<style>
-    #header {
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .selected-button {
-        background-color: #3498db;
-        color: #fff;
-    }
-
-    .selectable-button {
-        padding: 10px 20px;
-        margin: 5px;
-        border: none;
-    }
-
-
-    header {
-        text-align: center;
-    }
-
-    #form-and-canvas-and-error-encloser {
-        display: flex;
-        justify-content: space-evenly;
-        height: 300px;
-    }
-
-    form {
-        border: 3px;
-        border-color: black;
-        background-color: aquamarine;
-        border-radius: 10px;
-    }
-
-    #x-buttons {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    #plotArea {
-        position: relative;
-    }
-
-    #plotImage {
-        width: 300px; /* Установите размеры по вашему усмотрению */
-        height: 300px; /* Установите размеры по вашему усмотрению */
-    }
-
-</style>
 </body>
 </html>
