@@ -1,25 +1,28 @@
 package web.itmo.lab2.models;
 
+
+import java.beans.JavaBean;
 import java.io.Serializable;
 
+@JavaBean
 public class HitDataBean implements Serializable {
-    private float x;
-    private float y;
-    private float R;
+    private String x = null;
+    private String y = null;
+    private String R = null;
 
     private String hit = null;
 
     public HitDataBean(){}
 
-    public float getX(){
+    public String getX(){
         return this.x;
     }
 
-    public float getY(){
+    public String getY(){
         return this.y;
     }
 
-    public float getR(){
+    public String getR(){
         return this.R;
     }
 
@@ -27,15 +30,15 @@ public class HitDataBean implements Serializable {
         return this.hit;
     }
 
-    public void setX(float x){
+    public void setX(String x){
         this.x = x;
     }
 
-    public void setY(float y){
+    public void setY(String y){
         this.y = y;
     }
 
-    public void setR(float R){
+    public void setR(String R){
         this.R = R;
     }
 
