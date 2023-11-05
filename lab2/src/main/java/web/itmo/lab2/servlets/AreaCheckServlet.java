@@ -48,7 +48,27 @@ public class AreaCheckServlet extends HttpServlet {
             message = checkString.getMessage();
         }
 
-        out.print("{\"hit\": \"" + message + "\" }");
+        HitDataBean newBean = new HitDataBean();
+
+        newBean.setX(xString);
+        newBean.setY(yString);
+        newBean.setR(rString);
+        newBean.setHit(message);
+
+        hits.add(newBean);
+
+        request.setAttribute("beanList", hits);
+
+        String outputHtml = "<DOCTYPE html>" +
+                            "<html><body>" +
+                            "<table>" +
+                            "<thead><tr><th>X</th><th>Y</th><th>R</th></tr></thead>" +
+                            "<tbody><tr><td>" + xString + "</td><td>" + yString +
+                            "</td><td>" + rString + "</td><td>" + message + "</td></tr></tbody>" +
+                            "</table>" +
+                            "</body></html>";
+
+        out.write(outputHtml);
 
         out.flush();
         out.close();
