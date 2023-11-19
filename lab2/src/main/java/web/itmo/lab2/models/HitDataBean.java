@@ -3,6 +3,7 @@ package web.itmo.lab2.models;
 
 import java.beans.JavaBean;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @JavaBean
 public class HitDataBean implements Serializable {
@@ -11,6 +12,9 @@ public class HitDataBean implements Serializable {
     private String R = null;
 
     private String hit = null;
+    private double executionTime;
+
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     public HitDataBean(){}
 
@@ -30,8 +34,16 @@ public class HitDataBean implements Serializable {
         return this.hit;
     }
 
+    public LocalDateTime getTimestamp() {
+        return this.timestamp;
+    }
+
     public void setX(String x){
         this.x = x;
+    }
+
+    public double getExecutionTime() {
+        return this.executionTime;
     }
 
     public void setY(String y){
@@ -44,5 +56,9 @@ public class HitDataBean implements Serializable {
 
     public void setHit(String hit){
         this.hit = hit;
+    }
+
+    public void setExecutionTime(double seconds) {
+        this.executionTime = seconds;
     }
 }
