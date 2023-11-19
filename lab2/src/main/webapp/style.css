@@ -67,14 +67,13 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
     margin-top: 30px;
 }
 
 form {
     border: 3px;
     border-radius: 10px;
-    width: 700 px;
+    width: 700px;
 }
 
 #x-buttons {
@@ -83,7 +82,7 @@ form {
     gap: 10px;
 }
 
-#submit-results, #y {
+#submit-results, #y, #return-button {
     color:#443850;
     background-color:#99a1b1;
     border-width: 2px;
@@ -106,11 +105,28 @@ form {
 }
 
 #plotImage {
-    border-radius: 20px;
     width: 400px;
     height: 400px;
 }
 
 header, footer {
     padding: 10px;
+}
+
+td, th {
+    background-color: #443850;
+    color: #99a1b1;
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #99a1b1;
+    color: #443850;
+}
+
+circle {
+    fill: #FF0000!important;
 }
