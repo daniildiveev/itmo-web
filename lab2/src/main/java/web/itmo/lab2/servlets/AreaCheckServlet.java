@@ -23,6 +23,8 @@ public class AreaCheckServlet extends HttpServlet {
             String yString = request.getParameter("y");
             String rString = request.getParameter("r");
 
+            double start = System.nanoTime();
+
             response.setCharacterEncoding("UTF-8");
             String message = "";
 
@@ -56,6 +58,10 @@ public class AreaCheckServlet extends HttpServlet {
             newBean.setY(yString);
             newBean.setR(rString);
             newBean.setHit(message);
+
+            double executionTime = Math.round(((System.nanoTime() - start) * 0.0000001) * 100.0) / 100.0;
+
+            newBean.setExecutionTime(executionTime);
 
             HitDataTableBean hitTable = (HitDataTableBean) request.getAttribute("resultTable");
             ArrayList<HitDataBean> beans = hitTable.getHits();
