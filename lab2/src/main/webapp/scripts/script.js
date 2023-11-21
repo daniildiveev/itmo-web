@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             sendRequest(scaledX, scaledY, selectedR);
         } else {
-            raiseParameterError("R is not set!");
+            raiseErrorForUser("R is not set!");
         }
     })
 })
@@ -91,7 +91,7 @@ function sendRequest(x, y, r) {
             window.location.href = "results.jsp"
         })
         .catch(error => {
-            console.error('error: ', error);
+            raiseErrorForUser(error);
         })
 }
 
@@ -104,14 +104,14 @@ function validate() {
         if ((y >= -3) && (y <=5)){
             sendRequest(x, y, r);
         } else {
-            raiseParameterError("Y must float in range [-3, 5]");
+            raiseErrorForUser("Y must float in range [-3, 5]");
         }
     } else {
-        raiseParameterError("Some parameters are not a number");
+        raiseErrorForUser("Some parameters are not a number");
     }
 }
 
-function raiseParameterError(message){
+function raiseErrorForUser(message){
     const errorTag = document.getElementById("error-message");
     errorTag.innerHTML = message;
 
