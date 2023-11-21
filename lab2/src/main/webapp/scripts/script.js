@@ -1,3 +1,62 @@
+function selectButton(button) {
+    const buttons = document.querySelectorAll('.selectable-button');
+    buttons.forEach(button => button.classList.remove('selected-button'));
+
+    button.classList.add('selected-button');
+    x = parseFloat(button.value);
+}
+
+function getX() {
+    const button = document.querySelectorAll('.selected-button')[0];
+
+    return parseFloat(button.value);
+}
+
+function sendRequest(x, y, r) {
+    const url = `/lab2-1.0-SNAPSHOT/controller?x=` + x + `&y=` + y + `&r=` + r;
+
+    console.log(x, y, r);
+
+    fetch(url, {
+        method: "POST",
+    })
+        .then(data=> {
+            console.log(data)
+            return data
+        })
+        .then(data => {
+            window.location.href = "results.jsp"
+        })
+        .catch(error => {
+            raiseErrorForUser(error);
+        })
+}
+
+function validate() {
+    const x = getX();
+    const y = parseFloat(document.getElementById("y").value);
+    const r = parseFloat(document.getElementById("r-select").value);
+
+    if (!isNaN(x) && !isNaN(y) &&!isNaN(y)) {
+        if ((y >= -3) && (y <=5)){
+            sendRequest(x, y, r);
+        } else {
+            raiseErrorForUser("Y must float in range [-3, 5]");
+        }
+    } else {
+        raiseErrorForUser("Some parameters are not a number");
+    }
+}
+
+function raiseErrorForUser(message){
+    const errorTag = document.getElementById("error-message");
+    errorTag.innerHTML = message;
+
+    setTimeout(() => {
+        errorTag.innerHTML = "";
+    }, 3000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const rSelect = document.getElementById("r-select");
 
@@ -59,65 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
             raiseErrorForUser("R is not set!");
         }
     })
+
+    document.getElementById("submit-results").onclick = validate;
 })
-
-function selectButton(button) {
-    const buttons = document.querySelectorAll('.selectable-button');
-    buttons.forEach(button => button.classList.remove('selected-button'));
-
-    button.classList.add('selected-button');
-    x = parseFloat(button.value);
-}
-
-function getX() {
-    const button = document.querySelectorAll('.selected-button')[0];
-
-    return parseFloat(button.value);
-}
-
-function sendRequest(x, y, r) {
-    const url = `/lab2-1.0-SNAPSHOT/controller?x=` + x + `&y=` + y + `&r=` + r;
-
-    console.log(x, y, r);
-
-    fetch(url, {
-        method: "POST",
-    })
-        .then(data=> {
-            console.log(data)
-            return data
-        })
-        .then(data => {
-            window.location.href = "results.jsp"
-        })
-        .catch(error => {
-            raiseErrorForUser(error);
-        })
-}
-
-function validate() {
-    const x = getX();
-    const y = parseFloat(document.getElementById("y").value);
-    const r = parseFloat(document.getElementById("r-select").value);
-
-    if (!isNaN(x) && !isNaN(y) &&!isNaN(y)) {
-        if ((y >= -3) && (y <=5)){
-            sendRequest(x, y, r);
-        } else {
-            raiseErrorForUser("Y must float in range [-3, 5]");
-        }
-    } else {
-        raiseErrorForUser("Some parameters are not a number");
-    }
-}
-
-function raiseErrorForUser(message){
-    const errorTag = document.getElementById("error-message");
-    errorTag.innerHTML = message;
-
-    setTimeout(() => {
-        errorTag.innerHTML = "";
-    }, 3000);
-}
-
-document.getElementById("submit-results").onclick = validate;
