@@ -1,10 +1,14 @@
 package web.itmo.lab2.servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import web.itmo.lab2.models.HitDataTableBean;
+import web.itmo.lab2.retriever.JsonRetriever;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(name = "controllerServet", value = "/controller")
@@ -35,9 +39,18 @@ public class ControllerServlet extends HttpServlet{
                                 HttpServletResponse response)
             throws ServletException, IOException{
         try {
-            String x = request.getParameter("x");
-            String y = request.getParameter("y");
-            String R = request.getParameter("r");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            BufferedReader reader = request.getReader();
+            JsonObject requestJson = JsonRetriever.getJson(reader);
+
+            String x = requestJson.get("x").getAsString();
+            String y = requestJson.get("y").getAsString();
+            String R = requestJson.get("r").getAsString();
+
+            request.setAttribute("x", x);
+            request.setAttribute("y", y);
+            request.setAttribute("R", R);
 
             boolean hasCoordinates = (x != null) && (y != null) && (R != null);
 

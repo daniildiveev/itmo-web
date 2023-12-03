@@ -19,9 +19,10 @@ public class AreaCheckServlet extends HttpServlet {
                           HttpServletResponse response)
             throws IOException, ServletException {
         try {
-            String xString = request.getParameter("x");
-            String yString = request.getParameter("y");
-            String rString = request.getParameter("r");
+            String xString = (String) request.getAttribute("x");
+            String yString = (String) request.getAttribute("y");
+            String rString = (String) request.getAttribute("R");
+
 
             double start = System.nanoTime();
 
