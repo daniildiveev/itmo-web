@@ -13,12 +13,20 @@ function getX() {
 }
 
 function sendRequest(x, y, r) {
-    const url = `/lab2-1.0-SNAPSHOT/controller?x=` + x + `&y=` + y + `&r=` + r;
+    const url = `/lab2-1.0-SNAPSHOT/controller`;
 
     console.log(x, y, r);
 
     fetch(url, {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x: x,
+            y: y,
+            r: r
+        })
     })
         .then(data=> {
             console.log(data)
