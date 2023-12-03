@@ -31,26 +31,30 @@ public class AreaCheckServlet extends HttpServlet {
 
             ValidParameter checkString = ParameterValidator.checkStrings(xString, yString, rString);
 
-            if (checkString.getValid()) {
+            try {
+                if (!checkString.getValid()) {
+                    throw new Exception(checkString.getMessage());
+                }
+
                 float x = Float.parseFloat(xString);
                 float y = Float.parseFloat(yString);
                 float R = Float.parseFloat(rString);
 
                 ValidParameter checkRanges = ParameterValidator.checkRanges(x, y, R);
 
-                if (checkRanges.getValid()) {
-                    boolean hit = HitChecker.checkHit(x, y, R);
-
-                    if (hit) {
-                        message = "Point hits the area";
-                    } else {
-                        message = "Point doesn't hit the area";
-                    }
-                } else {
-                    message = checkRanges.getMessage();
+                if (!checkRanges.getValid()) {
+                    throw new Exception(checkRanges.getMessage());
                 }
-            } else {
-                message = checkString.getMessage();
+
+                boolean hit = HitChecker.checkHit(x, y, R);
+
+                if (hit) {
+                    message = "Point hits the area";
+                } else {
+                    message = "Point doesn't hit the area";
+                }
+            } catch (Exception e) {
+                message = e.getMessage();
             }
 
             HitDataBean newBean = new HitDataBean();
