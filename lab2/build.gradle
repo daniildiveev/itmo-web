@@ -24,6 +24,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
     implementation 'javax.servlet:jstl:1.2'
+    implementation 'com.google.code.gson:gson:2.7'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
