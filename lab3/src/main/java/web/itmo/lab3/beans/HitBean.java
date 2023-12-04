@@ -14,7 +14,6 @@ public class HitBean implements Serializable {
     private String R = null;
     private String hit = null;
     private double executionTime;
-
     private LocalDateTime timestamp = LocalDateTime.now();
 
     public HitBean(){}
@@ -61,5 +60,9 @@ public class HitBean implements Serializable {
 
     public void setExecutionTime(double seconds) {
         this.executionTime = seconds;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }
