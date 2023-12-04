@@ -1,0 +1,1 @@
+cp ./build/libs/lab3-1.0.war /usr/local/opt/wildfly-as/libexec/standalone/deployments/
