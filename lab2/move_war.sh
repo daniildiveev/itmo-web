@@ -1,0 +1,1 @@
+cp ./build/libs/lab2-1.0-SNAPSHOT.war /usr/local/opt/wildfly-as/libexec/standalone/deployments/
