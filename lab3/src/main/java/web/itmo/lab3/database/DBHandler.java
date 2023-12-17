@@ -13,8 +13,15 @@ public class DBHandler {
     private final String user;
     private final String password;
     public DBHandler() {
+        String dotenvPath = System.getenv("WEB_LAB_3_DOTENV");
+
+        if (dotenvPath == null) {
+            System.out.println("Environmental variable WEB_LAB_3_DOTENV not present");
+            System.exit(1);
+        }
+
         Dotenv dotenv = Dotenv.configure()
-                              .directory("/Users/daniildiveev/Desktop/web/lab3/src/main/resources/.env")
+                              .directory(dotenvPath)
                               .load();
 
         String name = dotenv.get("DB_NAME");
@@ -50,21 +57,14 @@ public class DBHandler {
                 ResultSet result = statement.getResultSet();
 
                 while (result.next()) {
-                    String x = Float.toString(result.getFloat(2));
-                    String y = Float.toString(result.getFloat(3));
-                    String R = Float.toString(result.getFloat(4));
+                    float x = result.getFloat(2);
+                    float y = result.getFloat(3);
+                    float R = result.getFloat(4);
                     String hit = result.getString(5);
                     LocalDateTime timestamp = result.getTimestamp(6).toLocalDateTime();
                     float executionTime = result.getFloat(7);
 
-                    HitBean newBean = new HitBean();
-                    newBean.setX(x);
-                    newBean.setY(y);
-                    newBean.setR(R);
-                    newBean.setHit(hit);
-                    newBean.setTimestamp(timestamp);
-                    newBean.setExecutionTime(executionTime);
-
+                    HitBean newBean = new HitBean(x, y, R, hit, executionTime, timestamp);
                     beanList.add(newBean);
                 }
 
@@ -85,9 +85,9 @@ public class DBHandler {
 
         try (Connection conn = DriverManager.getConnection(this.url, this.user, this.password)) {
             try (PreparedStatement statement = conn.prepareStatement(addBeanQuery)) {
-                statement.setFloat(1, Float.parseFloat(bean.getX()));
-                statement.setFloat(2, Float.parseFloat(bean.getY()));
-                statement.setFloat(3, Float.parseFloat(bean.getR()));
+                statement.setFloat(1, bean.getX());
+                statement.setFloat(2, bean.getY());
+                statement.setFloat(3, bean.getR());
                 statement.setString(4, bean.getHit());
                 statement.setTimestamp(5, Timestamp.valueOf(bean.getTimestamp()));
                 statement.setFloat(6, (float) bean.getExecutionTime());
