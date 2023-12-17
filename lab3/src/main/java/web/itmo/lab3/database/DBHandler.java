@@ -43,13 +43,15 @@ public class DBHandler {
                                            "date_part TIMESTAMP," +
                                            "execution_time FLOAT" +
                                         ");");
+
+                conn.close();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         };
     }
 
-    public HitBeanList getAllHitChecks() {
+    public ArrayList<HitBean> getAllHitChecks() {
         ArrayList<HitBean> beanList = new ArrayList<HitBean>();
 
         try (Connection conn = DriverManager.getConnection(this.url)) {
@@ -68,10 +70,9 @@ public class DBHandler {
                     beanList.add(newBean);
                 }
 
-                HitBeanList newHitBeanList = new HitBeanList();
-                newHitBeanList.setHits(beanList);
+                conn.close();
 
-                return newHitBeanList;
+                return beanList;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -95,6 +96,7 @@ public class DBHandler {
                 //TODO: think of cases when parameters are null
 
                 statement.executeQuery();
+                conn.close();
             }
         } catch (SQLException | NumberFormatException e) {
             System.out.println(e.getMessage());
