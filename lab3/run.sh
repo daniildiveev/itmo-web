@@ -1,4 +1,2 @@
-gradle clean
-gradle build
-gradle war
+gradle clean build war
 ./move_war.sh
