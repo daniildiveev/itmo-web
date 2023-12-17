@@ -8,24 +8,56 @@
 <h:head>
         <title>Проверка точки 3</title>
         <h:outputStylesheet name="style.css" />
-        <h:outputScript library="js" name="script.js" />
 </h:head>
 <h:body>
-        <div class="enclosing">
-                <div id="header-enclosing">
-                        <h1>Проверка точки</h1>
-                        <p>ФИО: Дивеев Даниил Андреевич</p>
-                        <p>Группа: P3225</p>
-                        <p>Вариант: 861308</p>
+        <div id="enclosing-all">
+                <div class="enclosing">
+                        <div id="header-enclosing">
+                                <h1>Проверка точки</h1>
+                                <p>ФИО: Дивеев Даниил Андреевич</p>
+                                <p>Группа: P3225</p>
+                                <p>Вариант: 861308</p>
+                        </div>
+                </div>
+
+                <div id="time-enclosing" class="enclosing"></div>
+
+                <div id="button-enclsing" class="enclosing">
+                        <h:button id="to-main-button" value="Основная страница" outcome="index"/>
+                </div>
+                <div class="enclosing" id="footer-enclosing">
+                        <p>&copy; 2023 Даниил Дивеев</p>
                 </div>
         </div>
 
-        <div id="time-enclosing" class="enclosing"></div>
+        <h:outputScript>
+                function redirectToMain() {
+                window.href.location = '/lab3-1.0/index.xhtml';
+                }
 
-        <a href="index.xhtml">Основная страница</a>
+                function getCurrentTime() {
+                let currentDate = new Date();
 
-        <div class="enclosing" id="footer-enclosing">
-                <p>&copy; 2023 Даниил Дивеев</p>
-        </div>
+                let timestamp = "Current Time: " + currentDate.getDate() + "/"
+                + (currentDate.getMonth()+1)  + "/"
+                + currentDate.getFullYear() + " @ ";
+
+                timestamp += currentDate.getHours();
+
+                timestamp += currentDate.getMinutes();
+
+                timestamp += currentDate.getSeconds();
+
+                return timestamp;
+                }
+
+                const timeDiv = document.getElementById("time-enclosing")
+                timeDiv.innerHTML = getCurrentTime();
+
+                setInterval(() => {
+                        const timeDiv = document.getElementById("time-enclosing")
+                        timeDiv.innerHTML = getCurrentTime();
+                }, 10000);
+        </h:outputScript>
 </h:body>
 </html>
