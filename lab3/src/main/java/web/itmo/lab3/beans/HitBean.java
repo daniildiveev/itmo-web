@@ -9,25 +9,25 @@ import java.time.LocalDateTime;
 @ManagedBean(name = "hitBean")
 @ApplicationScoped
 public class HitBean implements Serializable {
-    private String x = null;
-    private String y = null;
-    private String R = null;
-    private String hit = null;
+    private float x;
+    private float y;
+    private float r;
+    private String hit;
     private double executionTime;
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private LocalDateTime timestamp;
 
     public HitBean(){}
 
-    public String getX(){
+    public float getX(){
         return this.x;
     }
 
-    public String getY(){
+    public float getY(){
         return this.y;
     }
 
-    public String getR(){
-        return this.R;
+    public float getR(){
+        return this.r;
     }
 
     public String getHit(){
@@ -38,7 +38,7 @@ public class HitBean implements Serializable {
         return this.timestamp;
     }
 
-    public void setX(String x){
+    public void setX(float x){
         this.x = x;
     }
 
@@ -46,12 +46,12 @@ public class HitBean implements Serializable {
         return this.executionTime;
     }
 
-    public void setY(String y){
+    public void setY(float y){
         this.y = y;
     }
 
-    public void setR(String R){
-        this.R = R;
+    public void setR(float R){
+        this.r = R;
     }
 
     public void setHit(String hit){
