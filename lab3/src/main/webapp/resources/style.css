@@ -7,9 +7,29 @@ body {
     color:#9A7109;
 }
 
-#header {
+a {
+    display: flex;
+    align-self: center;
+    background-color: #99a1b1;
+    color: #443850;
+}
+
+#header-enclosing {
+    text-align: center;
+}
+
+.ui-button-text, .ui-slider-handle {
+    background-color: #443850;
+    color: #99a1b1;
+    border-color: #443850;
+}
+
+
+.enclosing {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    margin-top: 30px;
 }
 
 input {
@@ -27,62 +47,27 @@ select {
 }
 
 input[type="text"] {
-    background-color:#9A7109;
-    color: #9A7109;
-    border-color: #9A7109;
-}
-
-.selectable-button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    color:#443850;
-    background-color: #99a1b1;
-}
-
-.selected-button {
-    background-color: #443850;
-    color: #99a1b1;
+    background-color:#99a1b1;
+    color: #443850;
+    border-color: #99a1b1;
 }
 
 header {
     text-align: center;
 }
 
-#form-and-canvas-encloser {
-    display: flex;
-    justify-content: space-evenly;
+#global-enclosing {
+    display: block;
     align-items: center;
 }
 
-#form-and-canvas-and-error-encloser {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 300px;
-    font-size: large;
-}
-
-.enclosing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
 
 form {
     border: 3px;
     border-radius: 10px;
-    width: 700px;
 }
 
-#x-buttons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#submit-results, #y, #return-button {
+#submit-results, #y, #return-button, #to-main-button, #to-welcome-button {
     color:#443850;
     background-color:#99a1b1;
     border-width: 2px;
@@ -98,10 +83,6 @@ form {
     color: #443850;
     width: 50px;
     text-align:justify;
-}
-
-#plotArea {
-    position: relative;
 }
 
 #plotImage {
@@ -125,8 +106,4 @@ td, th {
 th {
     background-color: #99a1b1;
     color: #443850;
-}
-
-circle {
-    fill: #FF0000!important;
 }

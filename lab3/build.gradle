@@ -14,8 +14,7 @@ ext {
     junitVersion = '5.9.1'
 }
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+sourceCompatibility = 17
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -26,6 +25,9 @@ dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
     implementation 'org.postgresql:postgresql:42.2.18'
+    implementation('org.primefaces:primefaces:13.0.0:jakarta')
+    implementation('jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1')
+
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

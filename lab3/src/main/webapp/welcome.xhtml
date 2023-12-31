@@ -8,12 +8,13 @@
 <h:head>
         <title>Проверка точки 3</title>
         <h:outputStylesheet name="style.css" />
+        <h:outputScript name="js/script.js" />
 </h:head>
 <h:body>
         <div id="enclosing-all">
                 <div class="enclosing">
                         <div id="header-enclosing">
-                                <h1>Проверка точки</h1>
+                                <h1>Проверка точки 3</h1>
                                 <p>ФИО: Дивеев Даниил Андреевич</p>
                                 <p>Группа: P3225</p>
                                 <p>Вариант: 861308</p>
@@ -31,33 +32,13 @@
         </div>
 
         <h:outputScript>
-                function redirectToMain() {
-                window.href.location = '/lab3-1.0/index.xhtml';
-                }
-
-                function getCurrentTime() {
-                let currentDate = new Date();
-
-                let timestamp = "Current Time: " + currentDate.getDate() + "/"
-                + (currentDate.getMonth()+1)  + "/"
-                + currentDate.getFullYear() + " @ ";
-
-                timestamp += currentDate.getHours();
-
-                timestamp += currentDate.getMinutes();
-
-                timestamp += currentDate.getSeconds();
-
-                return timestamp;
-                }
-
-                const timeDiv = document.getElementById("time-enclosing")
-                timeDiv.innerHTML = getCurrentTime();
+                const toMainButton = document.getElementById("to-main-button");
+                toMainButton.onclick = redirectToMain;
 
                 setInterval(() => {
                         const timeDiv = document.getElementById("time-enclosing")
                         timeDiv.innerHTML = getCurrentTime();
-                }, 10000);
+                }, 1000);
         </h:outputScript>
 </h:body>
 </html>
