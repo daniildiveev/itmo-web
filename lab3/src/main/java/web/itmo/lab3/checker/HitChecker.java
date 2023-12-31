@@ -7,7 +7,7 @@ public class HitChecker {
         } else if (x > 0 && y < 0) {
             return y > (x / 2 - R / 2);
         } else if (x < 0 && y > 0) {
-            return (x * x + y * y < R);
+            return (Math.sqrt(x * x + y * y) < R);
         } else return false;
     }
 }
