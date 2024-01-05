@@ -11,10 +11,11 @@ export const Main = () => {
     const credentials = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    console.log(localStorage);
 
-    console.log(credentials);
 
     const logOut = () => {
+        localStorage.clear();
         dispatch(userLogout())
         navigate("/");
     }

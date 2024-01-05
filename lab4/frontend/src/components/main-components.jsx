@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import {useDispatch} from "react-redux";
+import {setR} from "../actions/actions";
 
-const values = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+const xValues = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+const rValues = [1, 2, 3, 4]
 
 const XButtons = () => {
     const [selectedValue, setSelectedValue] = useState(null);
@@ -12,7 +15,7 @@ const XButtons = () => {
     return (
         <div id="x-buttons" className="enclosing">
             X:
-            {values.map((button, i) => (
+            {xValues.map((button, i) => (
                 <button
                     type="button"
                     name="x"
@@ -30,22 +33,24 @@ const XButtons = () => {
 
 const RButtons = () => {
     const [selectedValue, setSelectedValue] = useState(null);
+    const dispatch = useDispatch();
 
     const handleButtonClick = (value) => {
+        dispatch(setR(value));
         setSelectedValue(value);
     };
 
     return (
         <div id="r-buttons" className="enclosing">
             R:
-            {values.map((button, i) => (
+            {rValues.map((button, i) => (
                 <button
                     type="button"
                     name="r"
                     key={i}
-                    value={i - 4}
-                    className={selectedValue === i - 4 ? 'selected-button' : null}
-                    onClick={() => handleButtonClick(i - 4)}
+                    value={i + 1}
+                    className={selectedValue === i + 1 ? 'selected-button' : null}
+                    onClick={() => handleButtonClick(i + 1)}
                 >
                     {button}
                 </button>
@@ -63,9 +68,4 @@ const YInput = () => {
     );
 };
 
-function sendData(selectedValue, yValue) {
-    console.log('Selected Value:', selectedValue);
-    console.log('Y Value:', yValue);
-}
-
-export { XButtons, YInput, RButtons, sendData };
+export { XButtons, YInput, RButtons};

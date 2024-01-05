@@ -1,5 +1,9 @@
 import {USER_LOGIN, USER_LOGOUT} from "../actions/actionTypes";
-import {initialState} from "../initialState";
+
+const initialState = {
+    isAuthenticated: false,
+    user: null,
+}
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
