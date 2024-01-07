@@ -1,205 +1,220 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media screen and (min-width: 822px){
+  body {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 15px;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5dc;
+      color: #9A7109;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  #header-enclosing {
+      text-align: center;
   }
-  to {
-    transform: rotate(360deg);
+
+
+  .enclosing {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-top: 30px;
   }
+
+  input {
+      border-radius: 7px;
+      font-size: 20px;
+  }
+
+  select {
+      border-radius: 10px;
+      width: 60px;
+      height: 30px;
+      background-color: #99a1b1;
+      color: #443850;
+      border: none;
+  }
+
+  input[type="text"] {
+      width: 100%;
+      background-color: #99a1b1;
+      color: #443850;
+      height: 20px;
+      border: 0;
+  }
+
+  header {
+      text-align: center;
+  }
+
+  #global-enclosing {
+      display: block;
+      align-items: center;
+  }
+
+
+  form {
+      border: 3px;
+      border-radius: 10px;
+  }
+
+  #submit-results, #y, #return-button, #to-main-button, #to-welcome-button {
+      color: #443850;
+      background-color: #99a1b1;
+    box-shadow: none;
+    border: 2px none #9A7109;
+    height: 30px;
+      width: 90px;
+  }
+
+  #y::placeholder {
+      color: #443850;
+      width: 50px;
+      text-align: justify;
+  }
+
+  header, footer {
+      padding: 10px;
+  }
+
+  td, th {
+      background-color: #443850;
+      color: #99a1b1;
+      width: 250px;
+      height: 40px;
+      border-radius: 10px;
+      text-align: center;
+  }
+
+  th {
+      background-color: #99a1b1;
+      color: #443850;
+  }
+
+  button {
+      width: 50px;
+      margin-left: 3%;
+      background-color: #99a1b1;
+      color: #443850;
+      border-radius: 5px;
+      border: 0px;
+      font-size: 20px;
+  }
+
+  .selected-button {
+      background-color: #443850;
+      color: #99a1b1;
+  }
+
+  #password-input, #username-input {
+      margin-top: 3%;
+  }
+
+  #login-submit-button,
+  #signup-submit-button,
+  #submit-button,
+  #logout-button {
+      width: 50%;
+      background-color: #9A7109;
+      color: #f5f5dc;
+  }
+
+  #y-input {
+      width: 30%;
+  }
+
+  #user {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: right;
+      width: 100%;
+  }
+  #logout-button {
+      width: 100%;
+  }
+
 }
 
-body {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 15px;
-  margin: 0;
-  padding: 0;
-  background-color: #f5f5dc;
-  color:#9A7109;
-}
+@media screen and (max-width: 822px) {
+  body {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5dc;
+    color: #9A7109;
+  }
 
-a {
-  display: flex;
-  align-self: center;
-  background-color: #99a1b1;
-  color: #443850;
-}
+  #root {
+    display: flex;
+    justify-content: center;
+  }
 
-#header-enclosing {
-  text-align: center;
-}
-
-.ui-button-text, .ui-slider-handle {
-  background-color: #443850;
-  color: #99a1b1;
-  border-color: #443850;
-}
+  #header-enclosing, footer {
+    text-align: center;
+  }
 
 
-.enclosing {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 30px;
-}
+  .enclosing {
+    display: flex;
+    margin-top: 30px;
+  }
 
-input {
-  border-radius: 7px;
-  font-size: 20px;
-}
+  #login-submit-button,
+  #signup-submit-button,
+  #submit-button,
+  #logout-button {
+    width: 50%;
+    background-color: #9A7109;
+    color: #f5f5dc;
+  }
 
-select {
-  border-radius: 10px;
-  width: 60px;
-  height: 30px;
-  background-color: #99a1b1;
-  color:#443850;
-  border: none;
-}
+  #logout-button {
+    width: 70%;
+  }
 
-input[type="text"] {
-  width: 100%;
-  background-color:#99a1b1;
-  color: #443850;
-  height: 20px;
-  border: 0;
-}
+  button {
+    width: 10%;
+    margin-left: 3%;
+    background-color: #99a1b1;
+    color: #443850;
+    border-radius: 5px;
+    border: 0;
+    font-size: 20px;
+  }
 
-header {
-  text-align: center;
-}
+  form {
+    align-content: center;
+  }
 
-#global-enclosing {
-  display: block;
-  align-items: center;
-}
+  #form-and-canvas-and-error-enclosing {
+    display: block;
+  }
 
+  #submit-results, #y, #return-button, #to-main-button, #to-welcome-button {
+    color: #443850;
+    background-color: #99a1b1;
+    box-shadow: none;
+    border: 2px none #9A7109;
+    height: 30px;
+    width: 90px;
+  }
 
-form {
-  border: 3px;
-  border-radius: 10px;
-}
+  .selected-button {
+    background-color: #443850;
+    color: #99a1b1;
+  }
 
-#submit-results, #y, #return-button, #to-main-button, #to-welcome-button {
-  color:#443850;
-  background-color:#99a1b1;
-  border-width: 2px;
-  border-color:#9A7109;
-  box-shadow: none;
-  border: none;
-  height: 30px;
-  width: 90px;
+  input[type="text"] {
+    width: 100%;
+    background-color: #99a1b1;
+    color: #443850;
+    height: 20px;
+    border: 0;
+    border-radius: 10px;
+  }
 
-}
-
-#y::placeholder {
-  color: #443850;
-  width: 50px;
-  text-align:justify;
-}
-
-#plotImage {
-  width: 400px;
-  height: 400px;
-}
-
-header, footer {
-  padding: 10px;
-}
-
-td, th {
-  background-color: #443850;
-  color: #99a1b1;
-  width: 250px;
-  height: 40px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-th {
-  background-color: #99a1b1;
-  color: #443850;
-}
-
-button {
-  width: 50px;
-  margin-left: 3%;
-  background-color: #99a1b1;
-  color: #443850;
-  border-radius: 5px;
-  border: 0px;
-  font-size: 20px;
-}
-
-.selected-button {
-  background-color: #443850;
-  color: #99a1b1;
-}
-
-#password-input, #username-input{
-  margin-top: 3%;
-}
-
-#login-submit-button,
-#signup-submit-button,
-#submit-button,
-#logout-button{
-  width: 50%;
-  background-color: #9A7109;
-  color: #f5f5dc;
-}
-
-#y-input {
-  width: 30%;
-}
-
-#user{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: right;
-  width: 100%;
-}
-
-#login-submit-button,
-#signup-submit-button,
-#submit-button,
-#logout-button{
-  width: 50%;
-  background-color: #9A7109;
-  color: #f5f5dc;
-}
-
-#logout-button {
-  width: 100%;
+    #password-input, #username-input {
+        margin-top: 3%;
+    }
 }
