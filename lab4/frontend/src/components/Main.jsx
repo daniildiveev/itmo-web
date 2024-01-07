@@ -1,18 +1,13 @@
 import './App.css';
-import {Logo} from "./Svg";
-import {XButtons, YInput, RButtons} from "./main-components";
-import {useState, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {userLogout} from "../actions/actions";
 import {useNavigate} from "react-router-dom";
+import {FormAndCanvas} from "./FormAndCanvas";
 
 export const Main = () => {
-    const [errorMessage, setErrorMessage] = useState('')
     const credentials = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(localStorage);
-
 
     const logOut = () => {
         localStorage.clear();
@@ -20,68 +15,6 @@ export const Main = () => {
         navigate("/");
     }
 
-    const validate = (x, y, r) => {
-        if (isNaN(y)){
-            setErrorMessage("Y doit un flotteur valide");
-            return false;
-        }
-
-        if (y === "") {
-            setErrorMessage("Vous devez spécifier Y")
-        }
-
-        y = parseFloat(y)
-
-        if (y < -5 || y > 3) {
-            setErrorMessage("Y doit être dans la plage [-5; 3]");
-            return false;
-        }
-
-        if (x == null) {
-            setErrorMessage("Vous devez spécifier X")
-            return false;
-        }
-
-        if (r == null) {
-            setErrorMessage("Vous devez spécifier R")
-            return false;
-        }
-
-        return true;
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let x = null, y, r = null;
-
-        const rData = event.target.r;
-        const xData = event.target.x;
-
-        for (let i=0; i < rData.length; i++) {
-            let buttonClasses = Array.from(rData[i].classList)
-
-            if (buttonClasses.includes("selected-button")) {
-                r = rData[i].value;
-            }
-        }
-
-        for (let i=0; i < xData.length; i++) {
-            let buttonClasses = Array.from(xData[i].classList)
-
-            if (buttonClasses.includes("selected-button")) {
-                x = xData[i].value;
-            }
-        }
-
-        y = event.target.y.value;
-        let validation = validate(x, y, r)
-
-        if(!validation){
-            setTimeout(() => {
-                setErrorMessage("");
-            }, 2000)
-        }
-    }
     if (credentials.isAuthenticated) {
         return (<div>
                 <div id="user">
@@ -101,25 +34,7 @@ export const Main = () => {
                     </div>
                 </div>
 
-                <div id="form-and-canvas-and-error-enclosing" className="enclosing">
-                    <div id="form-and-error-enclosing" className="enclosing">
-                        <form onSubmit={handleSubmit}>
-                            {XButtons()}
-                            {YInput()}
-                            {RButtons()}
-
-                            <div id="error-enclosing" className="enclosing">
-                                {errorMessage}
-                            </div>
-
-                            <div id="submit-button-enclosing" className="enclosing">
-                                <button id="submit-button" type="submit">Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    {Logo()}
-                </div>
+                <FormAndCanvas />
 
                 <div className="enclosing" id="footer-enclosing">
                     <footer>

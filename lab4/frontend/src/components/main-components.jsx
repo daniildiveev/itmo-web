@@ -31,13 +31,15 @@ const XButtons = () => {
     );
 };
 
-const RButtons = () => {
+const RButtons = props => {
     const [selectedValue, setSelectedValue] = useState(null);
     const dispatch = useDispatch();
 
     const handleButtonClick = (value) => {
         dispatch(setR(value));
         setSelectedValue(value);
+        props.remove();
+        props.plotPrevious();
     };
 
     return (
