@@ -1,4 +1,6 @@
-let points = []
+let points = [];
+const SVG_SIZE_HALF = 150;
+const SCALE_SIZE = 100;
 
 function redirectToMain() {
     window.href.location = '/lab3-1.0/index.xhtml';
@@ -97,10 +99,11 @@ function createCircle(event) {
 
 function updatePoints() {
     let selectedR = document.getElementById("data_form:r-slider").value;
+    selectedR = parseFloat(selectedR);
     const svg = document.getElementById("svg-container");
 
-    if (selectedR !== "0.0"){
-        if (points !== []) {
+    if (selectedR !== 0.0){
+        if (points) {
             let circles = svg.querySelectorAll('circle');
 
             circles.forEach(function(circle) {
@@ -111,10 +114,8 @@ function updatePoints() {
 
             points.forEach((element) => {
 
-                let x = element.x * element.r * 100 / selectedR + 150;
-                let y = -element.y * element.r * 100 / selectedR + 150;
-
-                console.log(x, y);
+                let x = element.x * element.r * element.r * SCALE_SIZE / selectedR + SVG_SIZE_HALF;
+                let y = -element.y * element.r * element.r * SCALE_SIZE / selectedR + SVG_SIZE_HALF;
 
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 circle.setAttribute("cx", x);
