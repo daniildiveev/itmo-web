@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:s="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Проверка точки 3</title>
+    <h:outputStylesheet name="style.css"/>
+    <h:outputScript name="js/script.js" />
+</h:head>
+
+<h:body>
+    <div class="enclosing">
+        <div id="header-enclosing">
+            <h1>Проверка точки 3</h1>
+            <p>ФИО: Дивеев Даниил Андреевич</p>
+            <p>Группа: P3225</p>
+            <p>Вариант: 861308</p>
+        </div>
+    </div>
+
+    <div id="global-enclosing" class="enclosing">
+        <div id="form-and-canvas-and-error-enclosing" class="enclosing">
+            <div id="form-enclosing" class="enclosing">
+                <h:form  id="data_form" prependID="false">
+                    <div id="x-enclosing" class="enclosing">
+                        <p:outputLabel for="x-input" value="X:"/>
+                        <h:selectOneMenu value="#{inputValues.x}" id="x-input">
+                            <f:selectItem itemValue = "-4" itemLabel = "-4" />
+                            <f:selectItem itemValue = "-3" itemLabel = "-3" />
+                            <f:selectItem itemValue = "-2" itemLabel = "-2" />
+                            <f:selectItem itemValue = "-1" itemLabel = "-1" />
+                            <f:selectItem itemValue = "0" itemLabel = "0" />
+                            <f:selectItem itemValue = "1" itemLabel = "1" />
+                            <f:selectItem itemValue = "2" itemLabel = "2" />
+                            <f:selectItem itemValue = "3" itemLabel = "3" />
+                            <f:selectItem itemValue = "4" itemLabel = "4" />
+                        </h:selectOneMenu>
+                    </div>
+
+                    <div id="y-enclsosing" class="enclosing">
+                        <p:outputLabel for="y-input" value="Y:"/>
+                        <h:inputText id="y-input" value="#{inputValues.y}"/>
+                    </div>
+
+                    <div id="R-enclosing" class="enclosing">
+                        <p:outputLabel for="r-slider" value="R:"/>
+                        <div id="R-text-and-slider-enclosing">
+                            <p:inputText style="text-align: center;" id="r-slider" value="#{inputValues.r}"/>
+                            <p:slider style="width:200px" for="r-slider" step="0.25" minValue="1" maxValue="4" onSlideEnd="updatePoints()"/>
+                        </div>
+                    </div>
+
+                    <div id="error-enclosing" class="enclosing">
+                        <div id="error-message">
+
+                        </div>
+                    </div>
+
+                    <div id="button-enclosing" class="enclosing">
+                        <p:commandButton value="Send" update="@form">
+                            <f:ajax execute="@form" listener="#{hitDataBean.addHit(inputValues.x, inputValues.y, inputValues.r)}" render=":table"/>
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+
+                <div id="plotArea" >
+                    <svg height="300"
+                         width="300"
+                         xmlns="http://www.w3.org/2000/svg"
+                         id="svg-container"
+                         class="no-select">
+
+                        <line stroke="blue"
+                              x1="0"
+                              x2="300"
+                              y1="150"
+                              y2="150"
+                        ></line>
+                        <line stroke="black"
+                              x1="150"
+                              x2="150"
+                              y1="0"
+                              y2="300"
+                        ></line>
+                        <polygon fill="black"
+                                 class="svg-arrow"
+                                 points="150,0 144,15 156,15"
+                                 stroke="white"
+                        ></polygon>
+                        <polygon fill="black"
+                                 class="svg-arrow"
+                                 points="300,150 285,156 285,144"
+                                 stroke="white"
+                        ></polygon>
+
+                        <line stroke="black"
+                              x1="200"
+                              x2="200"
+                              y1="155"
+                              y2="145"
+                        ></line>
+                        <line stroke="black"
+                              x1="250"
+                              x2="250"
+                              y1="155"
+                              y2="145"></line>
+
+                        <line stroke="black"
+                              x1="50"
+                              x2="50"
+                              y1="155"
+                              y2="145"></line>
+
+                        <line stroke="black"
+                              x1="100"
+                              x2="100"
+                              y1="155"
+                              y2="145"></line>
+
+                        <line stroke="black"
+                              x1="145"
+                              x2="155"
+                              y1="100"
+                              y2="100"></line>
+
+                        <line stroke="black"
+                              x1="145"
+                              x2="155"
+                              y1="50"
+                              y2="50"></line>
+
+                        <line stroke="black"
+                              x1="145"
+                              x2="155"
+                              y1="200"
+                              y2="200"></line>
+
+                        <line stroke="black"
+                              x1="145"
+                              x2="155"
+                              y1="250"
+                              y2="250"></line>
+
+
+                        <text fill="black"
+                              x="195"
+                              y="140"
+                        >R/2
+                        </text>
+                        <text fill="black"
+                              x="248"
+                              y="140"
+                        >R
+                        </text>
+
+                        <text fill="black"
+                              x="40"
+                              y="140"
+                        >-R
+                        </text>
+                        <text fill="black"
+                              x="90"
+                              y="140"
+                        >-R/2
+                        </text>
+
+                        <text fill="black"
+                              x="160"
+                              y="105"
+                        >R/2
+                        </text>
+                        <text fill="black"
+                              x="160"
+                              y="55"
+                        >R
+                        </text>
+
+                        <text fill="black"
+                              x="160"
+                              y="205"
+                        >-R/2
+                        </text>
+                        <text fill="black"
+                              x="160"
+                              y="255"
+                        >-R
+                        </text>
+
+                        <text fill="black"
+                              x="160"
+                              y="10"
+                        >Y
+                        </text>
+                        <text fill="black"
+                              x="290"
+                              y="140"
+                        >X
+                        </text>
+
+                        <polygon fill="blue"
+                                 fill-opacity="0.1"
+                                 points="50,150 150,150 150,250 50,250"
+                                 stroke="blue"
+                        ></polygon>
+
+                        <polygon fill="blue"
+                                 fill-opacity="0.1"
+                                 points="150,150 250,150 150,200"
+                                 stroke="blue"
+                        ></polygon>
+
+                        <path d="M50,150 A100,100 0 0,1 150,50 L150,150 Z"
+                              fill="blue"
+                              fill-opacity="0.1"
+                              stroke="blue"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div id="table-enclosing" class="enclosing">
+            <h:dataTable id="table" value="#{hitDataBean.getHits()}" var="el">
+                <h:column>
+                    <f:facet name="header">Result</f:facet>
+                    <h:outputText value="#{el.hit}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    <h:outputText value="#{el.x}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Y</f:facet>
+                    <h:outputText value="#{el.y}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    <h:outputText value="#{el.r}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Current Time</f:facet>
+                    <h:outputText value="#{el.timestamp}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Execution Time</f:facet>
+                    <h:outputText value="#{el.executionTime}"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+
+        <p:remoteCommand name="pushFromGraph" action="#{hitDataBean.addFromGraph}" update=":table"></p:remoteCommand>
+
+        <div id="welcome-button" class="enclosing">
+            <h:button id="to-welcome-button" value="Стартовая страница" outcome="welcome" />
+        </div>
+
+        <div class="enclosing" id="footer-enclosing">
+            <p>&copy; 2023 Даниил Дивеев</p>
+        </div>
+
+    <h:outputScript>
+        const svg = document.getElementById("svg-container")
+        svg.addEventListener("click", function (event) {
+            createCircle(event);
+        })
+
+        const buttonEnclosing = document.getElementById("button-enclosing")
+        const sendButton = buttonEnclosing.querySelector('button')
+        sendButton.addEventListener("click", function (event) {
+            let x = document.getElementById("data_form:x-input").value
+            let y = document.getElementById("data_form:y-input").value
+            let r = document.getElementById("data_form:r-slider").value
+
+            let hit = checkHit(x, y, r);
+
+            if (r !== '0.0') {
+                points.push({
+                    x: parseFloat(x),
+                    y: parseFloat(y),
+                    r: parseFloat(r)
+                })
+
+                x = x * 100 / r + 150;
+                y = -y * 100 / r + 150;
+
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", x);
+                circle.setAttribute("cy", y);
+                circle.setAttribute("r", 3);
+
+
+                if (hit) {
+                    circle.setAttribute("fill", "green");
+                } else {
+                    circle.setAttribute("fill", "red");
+                }
+
+                svg.appendChild(circle);
+            } else {
+                raiseErrorForUser("R not set!");
+            }
+        })
+    </h:outputScript>
+</h:body>
+</html>

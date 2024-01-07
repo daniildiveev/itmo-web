@@ -1,0 +1,1 @@
+cp ./build/libs/lab3-1.0.war ~/Desktop/wildfly-preview-23.0.2.Final/standalone/deployments/

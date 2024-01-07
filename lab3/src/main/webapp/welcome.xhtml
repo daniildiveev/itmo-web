@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+        <title>Проверка точки 3</title>
+        <h:outputStylesheet name="style.css" />
+        <h:outputScript name="js/script.js" />
+</h:head>
+<h:body>
+        <div id="enclosing-all">
+                <div class="enclosing">
+                        <div id="header-enclosing">
+                                <h1>Проверка точки 3</h1>
+                                <p>ФИО: Дивеев Даниил Андреевич</p>
+                                <p>Группа: P3225</p>
+                                <p>Вариант: 861308</p>
+                        </div>
+                </div>
+
+                <div id="time-enclosing" class="enclosing"></div>
+
+                <div id="button-enclsing" class="enclosing">
+                        <h:button id="to-main-button" value="Основная страница" outcome="index"/>
+                </div>
+                <div class="enclosing" id="footer-enclosing">
+                        <p>&copy; 2023 Даниил Дивеев</p>
+                </div>
+        </div>
+
+        <h:outputScript>
+                const toMainButton = document.getElementById("to-main-button");
+                toMainButton.onclick = redirectToMain;
+
+                setInterval(() => {
+                        const timeDiv = document.getElementById("time-enclosing")
+                        timeDiv.innerHTML = getCurrentTime();
+                }, 1000);
+        </h:outputScript>
+</h:body>
+</html>
