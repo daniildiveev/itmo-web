@@ -19,7 +19,7 @@ public class HitServiceImplementation implements HitService {
 
     @Override
     public Hit addHit(Hit hit) {
-        log.info("Registering new hit for user " + hit.getUser());
+        log.info("Registering new hit for user " + hit.getUsername());
 
         return hitRepository.save(hit);
     }
