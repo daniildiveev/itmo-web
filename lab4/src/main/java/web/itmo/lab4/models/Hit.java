@@ -18,4 +18,5 @@ public class Hit {
     private LocalDateTime dateTime;
     private double executionTime;
     private boolean hit;
+    private String user;
 }
