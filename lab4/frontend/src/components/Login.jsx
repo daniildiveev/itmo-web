@@ -1,11 +1,10 @@
 import './App.css';
 import {UsernameInput, PasswordInput} from "./login-components";
-import React, { useState, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import {useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { userLogin } from '../actions/actions';
 import { login } from '../services/loginService';
-//import {getUsername} from './redux/actions'
 
 
 export const Login = () => {
@@ -16,7 +15,8 @@ export const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const user = login(e.target.username.value, e.target.password.value);
+            const { username: usernameField, password: passwordField } = e.target;
+            const user = login(usernameField.value, passwordField.value);
             dispatch(userLogin(user))
 
             navigate('/main');
