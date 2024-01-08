@@ -70,4 +70,27 @@ const YInput = () => {
     );
 };
 
-export { XButtons, YInput, RButtons};
+const Header = () => {
+    return (
+        <div className="enclosing">
+            <div id="header-enclosing">
+                <h1>Vérification du point 4</h1>
+                <p>Prenom: Diveyev Daniil Andreevich</p>
+                <p>Groupe: P3225</p>
+                <p>Variante: 861574</p>
+            </div>
+        </div>
+    )
+}
+
+const Footer = () => {
+    return (
+        <div className="enclosing" id="footer-enclosing">
+            <footer>
+                <p>&copy; 2023 Diveyev Daniil</p>
+            </footer>
+        </div>
+    )
+}
+
+export { XButtons, YInput, RButtons, Footer, Header};

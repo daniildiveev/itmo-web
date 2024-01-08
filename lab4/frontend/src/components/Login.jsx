@@ -43,8 +43,8 @@ export const Login = () => {
 
             <div id="form-enclosing" className="enclosing" onSubmit={handleSubmit}>
                 <form>
-                    {UsernameInput()}
-                    {PasswordInput()}
+                    <UsernameInput />
+                    <PasswordInput />
 
                     <div id="error-message" className="enclosing">
                         {errorMessage}

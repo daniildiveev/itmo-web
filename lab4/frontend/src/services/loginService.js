@@ -1,6 +1,4 @@
 export const login = (username, password) => {
-    console.log(username, password);
-
     if (username === '1' && password === '1') {
         return {
             id: 1,

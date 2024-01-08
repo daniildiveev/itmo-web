@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {userLogout} from "../actions/actions";
 import {useNavigate} from "react-router-dom";
 import {FormAndCanvas} from "./FormAndCanvas";
+import {Footer, Header} from "./main-components";
 
 export const Main = () => {
     const credentials = useSelector(state => state.auth);
@@ -16,7 +17,8 @@ export const Main = () => {
     }
 
     if (credentials.isAuthenticated) {
-        return (<div>
+        return (
+            <div>
                 <div id="user">
                     <div>
                         User: {credentials.user.username}
@@ -25,35 +27,17 @@ export const Main = () => {
                         <button onClick={logOut} type="button" id="logout-button">Sortir</button>
                     </div>
                 </div>
-                <div className="enclosing">
-                    <div id="header-enclosing">
-                        <h1>Vérification du point 4</h1>
-                        <p>Prenom: Diveyev Daniil Andreevich</p>
-                        <p>Groupe: P3225</p>
-                        <p>Variante: 861574</p>
-                    </div>
-                </div>
+                <Header />
 
                 <FormAndCanvas />
 
-                <div className="enclosing" id="footer-enclosing">
-                    <footer>
-                        <p>&copy; 2023 Diveyev Daniil</p>
-                    </footer>
-                </div>
+                <Footer />
             </div>
         );
     } else {
         return (
             <div>
-                <div className="enclosing">
-                    <div id="header-enclosing">
-                        <h1>Vérification du point 4</h1>
-                        <p>Prenom: Diveyev Daniil Andreevich</p>
-                        <p>Groupe: P3225</p>
-                        <p>Variante: 861574</p>
-                    </div>
-                </div>
+                <Header />
 
                 <div id="not-logged-in" className="enclosing">
                     <h1>You are not logged in!</h1>
@@ -63,11 +47,7 @@ export const Main = () => {
                     <button onClick={logOut} type="button" id="logout-button">Login</button>
                 </div>
 
-                <div className="enclosing" id="footer-enclosing">
-                    <footer>
-                        <p>&copy; 2023 Diveyev Daniil</p>
-                    </footer>
-                </div>
+                <Footer/>
         </div>
         )
     }
