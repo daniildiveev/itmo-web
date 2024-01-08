@@ -45,6 +45,7 @@ public class UserServiceImplementation implements UserService {
 
         if (userRepository.existsById(user.getUsername())) {
             log.info("User already exists!");
+            return false;
         }
 
         user.setPassword(
@@ -52,7 +53,6 @@ public class UserServiceImplementation implements UserService {
         );
 
         userRepository.save(user);
-
-        return false;
+        return true;
     }
 }
