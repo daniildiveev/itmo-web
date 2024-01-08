@@ -9,6 +9,8 @@ import web.itmo.lab4.models.Hit;
 import web.itmo.lab4.repositories.HitRepository;
 import web.itmo.lab4.service.HitService;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -22,5 +24,9 @@ public class HitServiceImplementation implements HitService {
         log.info("Registering new hit for user " + hit.getUsername());
 
         return hitRepository.save(hit);
+    }
+
+    public List<Hit> getUsersHits(String username) {
+        return hitRepository.findAllByUsername(username);
     }
 }
