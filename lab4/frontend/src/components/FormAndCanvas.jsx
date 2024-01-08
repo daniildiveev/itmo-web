@@ -13,10 +13,8 @@ export const FormAndCanvas = () => {
     const svgRef = useRef(null);
     const divSvgRef = useRef(null);
 
-    const currentRObject = useSelector(state => state.r) || {r: 1};
-    const currentR = currentRObject.r;
-    const previousPointsObject = useSelector(state => state.points) || {points: []};
-    const previousPoints = previousPointsObject.points;
+    const currentR = useSelector(state => state.r);
+    const previousPoints = useSelector(state => state.points);
 
     const plot = (x, y, fill) => {
         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");

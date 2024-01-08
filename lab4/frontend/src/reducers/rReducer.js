@@ -1,5 +1,5 @@
 const initialState = {
-    r: null,
+    r: 1,
 };
 
 function rReducer(state = initialState, action) {
