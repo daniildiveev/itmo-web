@@ -29,7 +29,7 @@ public class JWTFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String token = request.getHeader("Authorization");
 
-        if (!token.startsWith("Bearer ")) {
+        if (token == null || !token.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
 
             return ;
