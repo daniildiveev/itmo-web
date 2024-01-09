@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { userLogin } from '../actions/actions';
-import { login } from '../services/loginService';
+import { authenticate } from '../services/loginService';
 
 
 export const Login = () => {
@@ -14,15 +14,24 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let register = e.nativeEvent.submitter.value === "register"
+
         try {
             const { username: usernameField, password: passwordField } = e.target;
-            const user = login(usernameField.value, passwordField.value);
-            dispatch(userLogin(user))
+            const registerData = await  authenticate(usernameField.value, passwordField.value, register);
 
+            if (!(registerData).jwt) {
+                throw new Error((registerData).message)
+            }
+
+            console.log("1")
+
+            dispatch(userLogin({jwt: (registerData).jwt}))
             navigate('/main');
 
         } catch (error) {
-            setErrorMessage("Invalid username or password")
+            setErrorMessage(error.message);
 
             setTimeout(() => {
                 setErrorMessage("")
@@ -51,8 +60,8 @@ export const Login = () => {
                     </div>
 
                     <div className="enclosing">
-                        <button id="login-submit-button">Connecter</button>
-                        <button id="signup-submit-button">Inscrire</button>
+                        <button id="login-submit-button" value="login">Connecter</button>
+                        <button id="signup-submit-button" value="register">Inscrire</button>
                     </div>
                 </form>
             </div>

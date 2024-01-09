@@ -2,7 +2,7 @@ import {USER_LOGIN, USER_LOGOUT} from "../actions/actionTypes";
 
 const initialState = {
     isAuthenticated: false,
-    user: null,
+    jwt: null,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -11,13 +11,13 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
-                user: action.payload
+                jwt: action.payload.jwt
             };
         case USER_LOGOUT:
             return {
                 ...state,
                 isAuthenticated: false,
-                user: null
+                jwt: null
             }
         default:
             return state;

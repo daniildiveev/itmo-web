@@ -4,15 +4,17 @@ import {userLogout} from "../actions/actions";
 import {useNavigate} from "react-router-dom";
 import {FormAndCanvas} from "./FormAndCanvas";
 import {Footer, Header} from "./main-components";
+import {Table} from "./Table";
 
 export const Main = () => {
     const credentials = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const previousPoints  = useSelector(state => state.points.points);
 
     const logOut = () => {
-        localStorage.clear();
         dispatch(userLogout())
+        localStorage.clear();
         navigate("/");
     }
 
@@ -20,9 +22,6 @@ export const Main = () => {
         return (
             <div>
                 <div id="user">
-                    <div>
-                        User: {credentials.user.username}
-                    </div>
                     <div id="logout-button-enclosing">
                         <button onClick={logOut} type="button" id="logout-button">Sortir</button>
                     </div>
@@ -30,6 +29,8 @@ export const Main = () => {
                 <Header />
 
                 <FormAndCanvas />
+
+                <Table points={previousPoints} />
 
                 <Footer />
             </div>

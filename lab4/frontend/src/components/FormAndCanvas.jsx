@@ -1,8 +1,9 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import checkHit from "../utils/utils";
-import {addPoint} from "../actions/actions";
+import {addPoint, setDefaultPoints} from "../actions/actions";
 import {RButtons, XButtons, YInput} from "./main-components";
+import {getAllPoints, sendPoint} from "../services/pointService";
 
 const SCALE_VALUE = 100;
 const SVG_SIZE = 150;
@@ -13,8 +14,9 @@ export const FormAndCanvas = () => {
     const svgRef = useRef(null);
     const divSvgRef = useRef(null);
 
-    const currentR = useSelector(state => state.r);
-    const previousPoints = useSelector(state => state.points);
+    const currentR = useSelector(state => state.r.r);
+    const previousPoints = useSelector(state => state.points.points);
+    const jwt = useSelector(state => state.auth.jwt);
 
     const plot = (x, y, fill) => {
         const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -31,7 +33,7 @@ export const FormAndCanvas = () => {
         circles.forEach((circle) => circle.remove());
     }
 
-    const plotPrevious = () => {
+     const plotPrevious = () => {
         if (previousPoints) {
             for (const point of previousPoints) {
                 const hit = checkHit(point.x, point.y, point.r * point.r / currentR);
@@ -52,20 +54,20 @@ export const FormAndCanvas = () => {
     }
 
     useEffect(() => {
-        plotPrevious();
-    }, []);
-
-    const handleAddPoint = (x, y, r) => {
-        const point = {
-            x: x,
-            y: y,
-            r: r
+        async function start() {
+            dispatch(await setDefaultPoints(jwt));
+            plotPrevious();
         }
 
-        dispatch(addPoint(point));
+        start();
+    }, [jwt]);
+
+     const handleAddPoint = async (x, y, r) => {
+        const newPoint = await sendPoint(x, y, r, jwt);
+        dispatch(addPoint(newPoint));
     }
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         const rect = divSvgRef.current.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -85,7 +87,7 @@ export const FormAndCanvas = () => {
         }
 
         plot(x, y, fill);
-        handleAddPoint(scaledX, scaledY, currentR);
+        await handleAddPoint(scaledX, scaledY, currentR);
     };
 
     const validate = (x, y, r) => {
@@ -118,7 +120,7 @@ export const FormAndCanvas = () => {
         return true;
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         let x = null, y, r = null;
 
@@ -148,6 +150,21 @@ export const FormAndCanvas = () => {
             setTimeout(() => {
                 setErrorMessage("");
             }, 2000)
+        } else {
+            const hit = checkHit(x, y, r);
+            let fill;
+
+            if (hit) {
+                fill = "green";
+            } else {
+                fill = "red"
+            }
+
+            await handleAddPoint(x, y, r);
+
+            x = x * SCALE_VALUE + SVG_SIZE;
+            y = -y * SCALE_VALUE + SVG_SIZE;
+            plot(x, y, fill);
         }
     }
 
