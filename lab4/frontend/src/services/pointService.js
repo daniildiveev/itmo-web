@@ -1,3 +1,5 @@
+import {API_HOST_URL, CREATE_HIT, HITS} from "./urlConfig";
+
 export const sendPoint = async (x, y, r, jwt) => {
     const body = {
         x: x,
@@ -14,7 +16,9 @@ export const sendPoint = async (x, y, r, jwt) => {
         }
     }
 
-    const response = await fetch("http://localhost:8080/hits/add", params)
+    const url = API_HOST_URL + HITS + CREATE_HIT;
+
+    const response = await fetch(url, params)
     const responseData = await response.json();
 
     return responseData.data["New element added"]
@@ -29,6 +33,7 @@ export const getAllPoints = async (jwt) => {
         }
     }
 
+    const hit = API_HOST_URL + HITS;
     const response = await fetch("http://localhost:8080/hits/", params)
     return await response.json();
 }

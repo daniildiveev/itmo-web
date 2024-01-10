@@ -1,8 +1,7 @@
+import {API_HOST_URL, AUTHENTICATION, LOGIN, REGISTER} from "./urlConfig";
+
 export const authenticate = async (username, password, register) => {
-    const body = {
-        username: username,
-        password: password
-    }
+    const body = { username, password }
 
     const params = {
         method: "POST",
@@ -12,19 +11,17 @@ export const authenticate = async (username, password, register) => {
         }
     }
 
-    let url;
-
-    if (register) {
-        url = "http://localhost:8080/authentication/register";
-    } else {
-        url = "http://localhost:8080/authentication/login";
-    }
+    let url = API_HOST_URL + AUTHENTICATION;
+    url = register ? url + REGISTER : url + LOGIN;
 
     const response = await fetch(url, params);
-    const responseData = await response.json()
 
-    return {
-        message: responseData.message,
-        jwt: responseData.jwt
-    };
+
+    try {
+        return await response.json();
+    } catch (e) {
+        return {
+            message: "Service unavailable"
+        }
+    }
 }

@@ -25,8 +25,6 @@ export const Login = () => {
                 throw new Error((registerData).message)
             }
 
-            console.log("1")
-
             dispatch(userLogin({jwt: (registerData).jwt}))
             navigate('/main');
 
