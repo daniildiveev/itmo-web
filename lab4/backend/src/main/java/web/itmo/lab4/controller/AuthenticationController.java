@@ -19,7 +19,6 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/authentication")
 public class AuthenticationController {
     private final UserServiceImplementation userService;
