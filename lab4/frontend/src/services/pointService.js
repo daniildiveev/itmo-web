@@ -33,7 +33,7 @@ export const getAllPoints = async (jwt) => {
         }
     }
 
-    const hit = API_HOST_URL + HITS;
-    const response = await fetch("http://localhost:8080/hits/", params)
+    let url = API_HOST_URL + HITS;
+    const response = await fetch(url, params)
     return await response.json();
 }
