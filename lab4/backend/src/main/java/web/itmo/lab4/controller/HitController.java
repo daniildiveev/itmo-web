@@ -18,6 +18,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/hits")
 public class HitController {
     private final HitServiceImplementation hitService;

@@ -1,0 +1,52 @@
+version: '2'
+
+services:
+  client:
+    image: 'sexozavr/lab4-client:latest'
+    build:
+      context: frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - backend_network
+
+  server:
+    image: 'sexozavr/lab4-server:latest'
+    build:
+      context: backend
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${PG_DB}
+      - SPRING_DATASOURCE_USERNAME=${PG_USER}
+      - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    networks:
+      - backend_network
+
+
+  db:
+    image: 'postgres:14-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge

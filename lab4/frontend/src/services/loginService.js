@@ -11,7 +11,7 @@ export const authenticate = async (username, password, register) => {
         }
     }
 
-    let url = API_HOST_URL + AUTHENTICATION;
+    let url =  API_HOST_URL + AUTHENTICATION;
     url = register ? url + REGISTER : url + LOGIN;
 
     const response = await fetch(url, params);
